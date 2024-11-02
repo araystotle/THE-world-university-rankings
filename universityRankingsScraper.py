@@ -5,9 +5,9 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
 import pandas as pd
 
-driver = webdriver.Edge()
+website = 'https://www.timeshighereducation.com/world-university-rankings/latest/world-ranking'
 
-website = 'https://www.timeshighereducation.com/world-university-rankings/2024/world-ranking'
+driver = webdriver.Edge()
 driver.get(website)
 driver.maximize_window()
 
@@ -59,6 +59,7 @@ for university in universities:
         international_students.append(university.find_element(By.XPATH, './td[5]').text)
         female_male_ratio.append(university.find_element(By.XPATH, './td[6]').text)
 
+
 # move to the scores tab
 scores_button_condition = EC.element_to_be_clickable((By.XPATH, '//ul[@class="list-unstyled"]/li[2]/label/span'))
 scores_button = WebDriverWait(driver, 5).until(scores_button_condition)
@@ -93,5 +94,5 @@ university_df = pd.DataFrame({'Rank': rank,
                               'International Outlook': international_outlook,
                               })
 
-university_df.to_csv('files/university_rankings_2024.csv', index=False)
+university_df.to_csv('files/university_rankings_2025_raw.csv', index=False)
 print(university_df)
